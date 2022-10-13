@@ -3402,7 +3402,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3273719457618780171, guid: d80d3e9dd16ac914d9b90cb527bd01b9, type: 3}
       propertyPath: velocity
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3273719457618780171, guid: d80d3e9dd16ac914d9b90cb527bd01b9, type: 3}
       propertyPath: playerName
@@ -4491,6 +4491,10 @@ PrefabInstance:
     - target: {fileID: 369515932358719171, guid: d80d3e9dd16ac914d9b90cb527bd01b9, type: 3}
       propertyPath: m_Name
       value: FirstPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3273719457618780171, guid: d80d3e9dd16ac914d9b90cb527bd01b9, type: 3}
+      propertyPath: velocity
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d80d3e9dd16ac914d9b90cb527bd01b9, type: 3}

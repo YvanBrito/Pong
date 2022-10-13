@@ -53,20 +53,13 @@ public class Ball : MonoBehaviour
     {
         if (other.collider.tag == "Paddle")
         {
+            bool isGoingToRight = rb.velocity.x > 0;
             rb.velocity = Vector2.zero;
 
             Vector3 direction = transform.position - other.transform.position;
-            //float directionY;
-            //if (direction.y > -0.3f && direction.y < 0.3f)
-            //{
-            //    directionY = Random.value > 0.5f ? 0.3f : -0.3f;
-            //}
-            //else
-            //{
-            //    directionY = direction.y;
-            //}
+            float forceToReflect = (Mathf.Abs(direction.y) + 1) * (isGoingToRight ? 1 : -1);
 
-            rb.AddForce(-other.contacts[0].normal + new Vector2(velocity, velocity * direction.y));
+            rb.AddForce(new Vector2(velocity * forceToReflect, velocity * direction.y));
         }
     }
 }
