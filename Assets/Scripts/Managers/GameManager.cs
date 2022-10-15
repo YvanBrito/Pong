@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private Ball inGameBall;
     [SerializeField] private GameObject _gameObjects;
     public int timeToStart;
-    [SerializeField] private Player[] players;
+    [SerializeField] private Paddle[] players;
     private int _lastVictory = 1;
     public int LastVictory
     {
@@ -101,7 +101,10 @@ public class GameManager : MonoBehaviour
     public void InitGame()
     {
         if (inGameBall == null)
+        {
             inGameBall = Instantiate(ballPrefab, _gameObjects.transform);
+            inGameBall.gameObject.name = "Ball";
+        }
 
         switch(_initMethod)
         {

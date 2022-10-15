@@ -57,7 +57,7 @@ public class Ball : MonoBehaviour
             rb.velocity = Vector2.zero;
 
             Vector3 direction = transform.position - other.transform.position;
-            float forceToReflect = (Mathf.Abs(direction.y) + 1) * (isGoingToRight ? 1 : -1);
+            float forceToReflect = (Mathf.Abs(direction.y) + 1.5f) * (isGoingToRight ? 1 : -1);
 
             rb.AddForce(new Vector2(velocity * forceToReflect, velocity * direction.y));
         }
