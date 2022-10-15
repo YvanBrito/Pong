@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,10 +18,16 @@ public class GameManager : MonoBehaviour
         set { _lastVictory = value; }
     }
     private InitMethod _initMethod;
-    public InitMethod InitMethod 
-    { 
-        get { return _initMethod; } 
+    public InitMethod InitMethod
+    {
+        get { return _initMethod; }
         set { _initMethod = value; }
+    }
+    private SecondPlayerMode _secondPlayer;
+    public SecondPlayerMode SecondPlayer
+    {
+        get { return _secondPlayer; }
+        set { _secondPlayer = value; }
     }
     private GameState _state;
     public GameState State { get { return _state; } }
@@ -79,6 +86,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.EndGame:
+                Destroy(players[1].GetComponent<Controller>());
                 Destroy(inGameBall.gameObject);
                 break;
             default:
@@ -92,6 +100,7 @@ public class GameManager : MonoBehaviour
     {
         ScoreManager.Instance.Reset();
         UIManager.Instance.Reset();
+
         for (int i = 0; i < players.Length; i++)
         {
             players[i].transform.position = new Vector2(players[i].transform.position.x, 0);
@@ -106,7 +115,22 @@ public class GameManager : MonoBehaviour
             inGameBall.gameObject.name = "Ball";
         }
 
-        switch(_initMethod)
+        if (players[1].GetComponent<Controller>() == null)
+        {
+            switch (_secondPlayer)
+            {
+                case SecondPlayerMode.AI:
+                    players[1].AddComponent<AIController>();
+                    break;
+                case SecondPlayerMode.Manual:
+                    players[1].AddComponent<KeyboardController>();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(_secondPlayer), _secondPlayer, null);
+            }
+        }
+
+        switch (_initMethod)
         {
             case InitMethod.WhoScored:
                 inGameBall.SideToInit = _lastVictory;
@@ -137,4 +161,10 @@ public enum GameState
     PauseState,
     EndRound,
     EndGame
+}
+
+public enum SecondPlayerMode
+{
+    AI,
+    Manual
 }

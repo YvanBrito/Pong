@@ -13,16 +13,19 @@ public class Paddle : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        controller = GetComponent<Controller>();
     }
 
     void Update()
     {
-        float upperLimit = Camera.main.ScreenToWorldPoint(new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight)).y;
-        float bottomLimit = Camera.main.ScreenToWorldPoint(new Vector2(Camera.main.pixelWidth, 0)).y;
-        realVelocity = controller.GetControl() * velocity;
-        isBottomAndGoingUp = rb.position.y + 1 < upperLimit && realVelocity > 0;
-        isTopAndGoingDown = rb.position.y - 1 > bottomLimit && realVelocity < 0;
+        if (controller == null) controller = GetComponent<Controller>();
+        else
+        {
+            float upperLimit = Camera.main.ScreenToWorldPoint(new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight)).y;
+            float bottomLimit = Camera.main.ScreenToWorldPoint(new Vector2(Camera.main.pixelWidth, 0)).y;
+            realVelocity = controller.GetControl() * velocity;
+            isBottomAndGoingUp = rb.position.y + 1 < upperLimit && realVelocity > 0;
+            isTopAndGoingDown = rb.position.y - 1 > bottomLimit && realVelocity < 0;
+        }
     }
 
     void FixedUpdate()

@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject rightWinUI;
     [SerializeField] private GameObject optionsUI;
     [SerializeField] private GameObject pausedUI;
+    [SerializeField] private GameObject chooseSecondPlayerUI;
     [SerializeField] private GameObject gameObjects;
 
     private static UIManager instance;
@@ -40,8 +41,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void ChooseSecondPlayer()
     {
+        menuUI.SetActive(false);
+        chooseSecondPlayerUI.SetActive(true);
+    }
+
+    public void StartGame(string secondPlayerMode)
+    {
+        GameManager.Instance.SecondPlayer = secondPlayerMode switch
+        {
+            "AI" => SecondPlayerMode.AI,
+            "Manual" => SecondPlayerMode.Manual,
+            _ => GameManager.Instance.SecondPlayer,
+        };
         GameManager.Instance.ResetGame();
         GameManager.Instance.UpdateGameState(GameState.PlayState);
         inGameUI.SetActive(true);
@@ -50,6 +63,7 @@ public class UIManager : MonoBehaviour
         pausedUI.SetActive(false);
         leftWinUI.SetActive(false);
         rightWinUI.SetActive(false);
+        chooseSecondPlayerUI.SetActive(false);
     }
 
     void ShowLeftWin()

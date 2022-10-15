@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private float initialVelocity;
     [SerializeField] private float velocity;
     private float timeInstaciated;
     private bool isRolling;
@@ -31,7 +32,7 @@ public class Ball : MonoBehaviour
         {
             if (Time.time > timeInstaciated + GameManager.Instance.timeToStart && !isRolling)
             {
-                rb.AddForce(new Vector2(velocity * sideToInit, velocity * Random.Range(-1f, 1f)));
+                rb.AddForce(new Vector2(initialVelocity * sideToInit, velocity * Random.Range(-1f, 1f)));
                 isRolling = true;
             }
         }
