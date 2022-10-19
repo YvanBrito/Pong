@@ -86,8 +86,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.EndGame:
-                Destroy(players[1].GetComponent<Controller>());
-                Destroy(inGameBall.gameObject);
+                EndGame();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -105,6 +104,12 @@ public class GameManager : MonoBehaviour
         {
             players[i].transform.position = new Vector2(players[i].transform.position.x, 0);
         }
+    }
+
+    public void EndGame()
+    {
+        Destroy(players[1].GetComponent<Controller>());
+        Destroy(inGameBall.gameObject);
     }
 
     public void InitGame()

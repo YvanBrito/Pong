@@ -89,6 +89,7 @@ public class UIManager : MonoBehaviour
 
     public void GoToMenu()
     {
+        GameManager.Instance.EndGame();
         GameManager.Instance.UpdateGameState(GameState.MenuState);
     }
 
